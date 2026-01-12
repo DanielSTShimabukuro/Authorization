@@ -1,6 +1,7 @@
 package authorization.authorization.entities.user;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -46,6 +47,22 @@ public class User {
   @Setter
   private String password;
 
+  @Column(nullable = false)
+  @Setter
+  private boolean accountNonExpired;
+
+  @Column(nullable = false)
+  @Setter
+  private boolean accountNonLocked;
+
+  @Column(nullable = false)
+  @Setter
+  private boolean credentialsNonExpired;
+
+  @Column(nullable = false)
+  @Setter
+  private boolean enabled;
+
   @Version
   private Long version;
 
@@ -55,7 +72,6 @@ public class User {
   @UpdateTimestamp
   private LocalDateTime updatedAt;
 
-  @Column(nullable = false, name = "role")
   @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(
     name = "user_roles",
@@ -63,6 +79,10 @@ public class User {
   )
   @Enumerated(EnumType.STRING)
   private Set<UserRole> roles = new HashSet<>();
+
+  public Set<UserRole> getRoles() {
+    return Collections.unmodifiableSet(this.roles);
+  }
 
   public void addRole(UserRole role) {
     this.roles.add(role);
