@@ -1,8 +1,12 @@
 package authorization.authorization.entities.user;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -44,6 +48,12 @@ public class User {
 
   @Version
   private Long version;
+
+  @CreationTimestamp
+  private LocalDateTime createdAt;
+
+  @UpdateTimestamp
+  private LocalDateTime updatedAt;
 
   @Column(nullable = false, name = "role")
   @ElementCollection(fetch = FetchType.EAGER)

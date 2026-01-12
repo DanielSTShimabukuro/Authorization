@@ -1,0 +1,41 @@
+package authorization.authorization.entities.user;
+
+import java.util.Collection;
+
+import org.jspecify.annotations.Nullable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+public class UserDetailsImpl implements UserDetails {
+  private final User user;
+
+  public UserDetailsImpl(
+    User user
+  ) {
+    this.user = user;
+  }
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return this.user
+                .getRoles()
+                .stream()
+                .map(role -> new SimpleGrantedAuthority("Role_" + role.name()))
+                .toList();
+  }
+
+  @Override
+  public @Nullable String getPassword() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
+  }
+
+  @Override
+  public String getUsername() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getUsername'");
+  }
+
+  
+}
