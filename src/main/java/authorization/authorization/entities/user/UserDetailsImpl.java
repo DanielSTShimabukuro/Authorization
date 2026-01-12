@@ -27,8 +27,8 @@ public class UserDetailsImpl implements UserDetails {
 
   @Override
   public @Nullable String getPassword() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
+    return this.user
+                .getPassword();
   }
 
   @Override
